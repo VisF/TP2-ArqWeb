@@ -19,7 +19,7 @@ import jakarta.persistence.OneToMany;
 public class Estudiante {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column
 	private String nombre;
 	@Column
@@ -102,12 +102,10 @@ public class Estudiante {
 		return dni;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public int getNroLibreta() {
 		return nroLibreta;
 	}
