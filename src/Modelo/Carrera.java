@@ -13,9 +13,28 @@ import jakarta.persistence.OneToMany;
 public class Carrera {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column    
 	private String nombre;
 	@OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
 	private List<EstudianteCarrera> estudiantes;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public List<EstudianteCarrera> getEstudiantes() {
+		return estudiantes;
+	}
+	public void setEstudiantes(List<EstudianteCarrera> estudiantes) {
+		this.estudiantes = estudiantes;
+	}
+	
 }

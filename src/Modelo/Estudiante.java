@@ -73,11 +73,15 @@ public class Estudiante {
 	public void setCiudadDeResidencia(String ciudadDeResidencia) {
 		this.ciudadDeResidencia = ciudadDeResidencia;
 	}
+	
+	
 	//TODO
 	public List<Carrera> getCarreras() {
 		List<Carrera> nueva = new ArrayList<>();
 		return nueva;
 	}
+	
+	
 	
 	public Estudiante clone() {
         try {

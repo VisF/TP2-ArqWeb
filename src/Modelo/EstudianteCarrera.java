@@ -24,9 +24,9 @@ public class EstudianteCarrera {
 	@JoinColumn(name = "idcarrera", nullable = false)
 	private Carrera carrera;
 	@Column
-	private LocalDate fechainicio;
+	private LocalDate fechaInicio;
 	@Column
-	private LocalDate fechafin;
+	private LocalDate fechaFin;
 	
 	public EstudianteCarrera() {
 		
@@ -36,7 +36,7 @@ public class EstudianteCarrera {
 		super();
 		this.estudiante = estudiante;
 		this.carrera = carrera;
-		this.fechainicio = fechainicio;
+		this.fechaInicio = fechainicio;
 	}
 	
 	public int getId() {
@@ -56,16 +56,16 @@ public class EstudianteCarrera {
 		this.carrera = carrera;
 	}
 	public LocalDate getFechainicio() {
-		return fechainicio;
+		return fechaInicio;
 	}
 	public void setFechainicio(LocalDate fechainicio) {
-		this.fechainicio = fechainicio;
+		this.fechaInicio = fechainicio;
 	}
 	public LocalDate getFechafin() {
-		return fechafin;
+		return fechaFin;
 	}
 	public void setFechafin(LocalDate fechafin) {
-		this.fechafin = fechafin;
+		this.fechaFin = fechafin;
 	}
 	
 	
