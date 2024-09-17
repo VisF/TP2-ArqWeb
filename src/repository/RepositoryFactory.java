@@ -1,7 +1,7 @@
 package repository;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class RepositoryFactory {
 	public static final String DERBY = "Derby";
@@ -36,7 +36,7 @@ public class RepositoryFactory {
 		RepositoryFactory.getEntity_manager_factory().close();
 	}
 	
-	public static EstudianteRepositoryImpl get_repositorio_equipo() {
+	public static EstudianteRepositoryImpl get_repositorio_estudiante() {
 		return EstudianteRepositoryImpl.get_instance();
 	}
 /*

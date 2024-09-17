@@ -25,7 +25,7 @@ public class Estudiante {
 	@Column
 	private String apellido;
 	@Column
-	private Date fechaNac;
+	private LocalDate fechaNac;
 	@Column
 	private char genero;
 	@Column
@@ -37,7 +37,11 @@ public class Estudiante {
 	@OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
 	private List<EstudianteCarrera> carreras;
 	
-	public Estudiante(String nombre, String apellido, Date fechaNac, char genero, int dni, String ciudadDeResidencia,
+	public Estudiante() {
+		super();
+	}
+	
+	public Estudiante(String nombre, String apellido, LocalDate fechaNac, char genero, int dni, String ciudadDeResidencia,
 			int nroLibreta, List<EstudianteCarrera> carreras) {
 		super();
 		this.nombre = nombre;
@@ -98,7 +102,7 @@ public class Estudiante {
 		carreras.add(nueva);
 	}
 	public int getEdad() {
-		LocalDate fecha = fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate fecha = fechaNac;
 		LocalDate fechaActual = LocalDate.now();
 		return Period.between(fecha, fechaActual).getYears();
 	}

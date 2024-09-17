@@ -12,14 +12,13 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class EstudianteCarrera {
+	
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-
 	@ManyToOne
 	@JoinColumn(name = "idestudiante", nullable = false)
 	private Estudiante estudiante;
-
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "idcarrera", nullable = false)
 	private Carrera carrera;
@@ -39,9 +38,7 @@ public class EstudianteCarrera {
 		this.fechaInicio = fechainicio;
 	}
 	
-	public int getId() {
-		return id;
-	}
+
 
 	public Estudiante getEstudiante() {
 		return estudiante;

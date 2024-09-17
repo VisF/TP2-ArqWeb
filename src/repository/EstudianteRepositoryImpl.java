@@ -28,15 +28,16 @@ public class EstudianteRepositoryImpl implements EstudianteRepository{
 	@Override
 	public Estudiante save(Estudiante estudiante) {
 		RepositoryFactory.getEntity_manager().getTransaction().begin();
+		//RepositoryFactory.getEntity_manager_factory();
 		if(estudiante.getId() == null) {
 			RepositoryFactory.getEntity_manager().persist(estudiante);
 			RepositoryFactory.getEntity_manager().getTransaction().commit();
-			RepositoryFactory.cerrar_conexion();
+			//RepositoryFactory.cerrar_conexion();
 			return estudiante;
 		}
 		RepositoryFactory.getEntity_manager().merge(estudiante);
 		RepositoryFactory.getEntity_manager().getTransaction().commit();
-		RepositoryFactory.cerrar_conexion();
+		//RepositoryFactory.cerrar_conexion();
 		
 		return estudiante;
 	}
@@ -45,6 +46,11 @@ public class EstudianteRepositoryImpl implements EstudianteRepository{
 	public void delete(Estudiante estudiante) {
 		RepositoryFactory.getEntity_manager().remove(estudiante);
 		
+	}
+	
+	public List<Estudiante> getEstudianteByCiudad(){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT e FROM Estudiante e ORDER BY e.ciudadDeResidencia", Estudiante.class).getResultList();
 	}
 
 }
