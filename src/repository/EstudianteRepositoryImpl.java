@@ -30,6 +30,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository{
 		RepositoryFactory.getEntity_manager().getTransaction().begin();
 		//RepositoryFactory.getEntity_manager_factory();
 		if(estudiante.getId() == null) {
+			estudiante.setNroLibreta(generarNroLibretaUnico());
 			RepositoryFactory.getEntity_manager().persist(estudiante);
 			RepositoryFactory.getEntity_manager().getTransaction().commit();
 			//RepositoryFactory.cerrar_conexion();
@@ -47,10 +48,31 @@ public class EstudianteRepositoryImpl implements EstudianteRepository{
 		RepositoryFactory.getEntity_manager().remove(estudiante);
 		
 	}
-	
+	public List<Estudiante> getEstudianteByGenero(char genero){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class)
+				.setParameter("genero", genero)
+				.getResultList();
+	}
+	public Estudiante getEstudianteByMatricula(int matricula){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT e FROM Estudiante e WHERE e.nroLibreta = :nroLibreta", Estudiante.class)
+				.setParameter("nroLibreta", matricula)
+				.getSingleResult();
+	}
 	public List<Estudiante> getEstudianteByCiudad(){
 		return  RepositoryFactory.getEntity_manager().createQuery(
 				"SELECT e FROM Estudiante e ORDER BY e.ciudadDeResidencia", Estudiante.class).getResultList();
+	}
+	private int generarNroLibretaUnico() {
+		return getUltimoNumeroLibreta() + 1;
+	}
+	public int getUltimoNumeroLibreta() {
+		Integer ultimoNroLibreta =  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT MAX(e.nroLibreta) FROM Estudiante e", Integer.class)
+				.getSingleResult();
+		
+		return (ultimoNroLibreta != null) ? ultimoNroLibreta : 0;
 	}
 
 }

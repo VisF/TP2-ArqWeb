@@ -17,19 +17,26 @@ public class app {
 		EstudianteRepositoryImpl repoEstudiante = RepositoryFactory.get_repositorio_estudiante();
 
 		
-		Estudiante es = new Estudiante("Matias" , "Shedden", LocalDate.now() , 'M', 2345, "Chaves", 2, null);
+		Estudiante es = new Estudiante("Paula" , "Sabatini", LocalDate.now() , 'F', 2345, "Chacabuco",  null);
 		repoEstudiante.save(es);
-		Estudiante es2 = new Estudiante("Matias" , "Shedden", LocalDate.now() , 'M', 2345, "Necochea", 2, null);
+		Estudiante es2 = new Estudiante("Laura" , "Martinez", LocalDate.now() , 'F', 2345, "Zamora",  null);
 		repoEstudiante.save(es2);
-		Estudiante es3 = new Estudiante("Matias" , "Chedden", LocalDate.now() , 'M', 2345, "Necochea", 2, null);
+		Estudiante es3 = new Estudiante("Anastacia" , "Lopez", LocalDate.now() , 'F', 2345, "Loberia",  null);
 		repoEstudiante.save(es3);
-	
+		
 		List<Estudiante> lista = repoEstudiante.getEstudianteByCiudad();
 		
 		for(Estudiante e : lista) {
-			System.out.println(e.getCiudadDeResidencia());
+			System.out.println(e.getNombre() +" " +  e.getApellido() + " " + e.getCiudadDeResidencia());
 		}
 		
+		List<Estudiante> lista2 = repoEstudiante.getEstudianteByGenero('F');
+		
+		for(Estudiante e : lista2) {
+			System.out.println(e.getNombre() +" " +  e.getApellido() + " " + e.getGenero());
+		}
+		Estudiante estudiante = repoEstudiante.getEstudianteByMatricula(8);
+		System.out.println(estudiante.getNombre() + " " + estudiante.getApellido());
 		RepositoryFactory.cerrar_conexion();
 	}
 

@@ -31,12 +31,12 @@ public class CarreraRepositoryImpl implements CarreraRepository{
 		if(carrera.getId() == null) {
 			RepositoryFactory.getEntity_manager().persist(carrera);
 			RepositoryFactory.getEntity_manager().getTransaction().commit();
-			RepositoryFactory.cerrar_conexion();
+			//RepositoryFactory.cerrar_conexion();
 			return carrera;
 		}
 		RepositoryFactory.getEntity_manager().merge(carrera);
 		RepositoryFactory.getEntity_manager().getTransaction().commit();
-		RepositoryFactory.cerrar_conexion();
+		//RepositoryFactory.cerrar_conexion();
 		
 		return carrera;
 	}

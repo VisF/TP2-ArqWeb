@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 
 
 @Entity
@@ -32,7 +33,7 @@ public class Estudiante {
 	private int dni;
 	@Column
 	private String ciudadDeResidencia;
-	@Column
+	@Column (unique = true)
 	private int nroLibreta;
 	@OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
 	private List<EstudianteCarrera> carreras;
@@ -42,7 +43,7 @@ public class Estudiante {
 	}
 	
 	public Estudiante(String nombre, String apellido, LocalDate fechaNac, char genero, int dni, String ciudadDeResidencia,
-			int nroLibreta, List<EstudianteCarrera> carreras) {
+		 List<EstudianteCarrera> carreras) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -50,7 +51,6 @@ public class Estudiante {
 		this.genero = genero;
 		this.dni = dni;
 		this.ciudadDeResidencia = ciudadDeResidencia;
-		this.nroLibreta = nroLibreta;
 		this.carreras = carreras;
 	}
 	public String getNombre() {
@@ -117,5 +117,7 @@ public class Estudiante {
 	public int getNroLibreta() {
 		return nroLibreta;
 	}
-	
+	public void setNroLibreta(int nro) {
+		this.nroLibreta = nro;
+	}
 }
