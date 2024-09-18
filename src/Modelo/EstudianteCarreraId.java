@@ -15,9 +15,7 @@ public class EstudianteCarreraId implements Serializable{
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 	}
-	public Integer getId() {
-		return (Integer) hashCode();
-	}
+	
 	public Integer getEstudiante() {
 		return estudiante;
 	}

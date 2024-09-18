@@ -35,7 +35,8 @@ public static EstudianteCarreraRepositoryImpl instance = new EstudianteCarreraRe
 				estudianteCarrera.getEstudiante().getId(),
 				estudianteCarrera.getCarrera().getId());
 		//TO DO
-		if(id.getId() == null) {
+		EstudianteCarrera existe = RepositoryFactory.getEntity_manager().find(EstudianteCarrera.class, id);
+		if(existe == null) {
 			RepositoryFactory.getEntity_manager().persist(estudianteCarrera);
 			RepositoryFactory.getEntity_manager().getTransaction().commit();
 			//RepositoryFactory.cerrar_conexion();

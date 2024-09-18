@@ -55,17 +55,17 @@ public class app {
 		CarreraRepositoryImpl repoCarrera = RepositoryFactory.get_repositorio_carrera();
 		Carrera c1 = new Carrera("TUDAI");
 		Carrera c2 = new Carrera("Tecnicatura en Bioingenieria");
-		/*
+		
 		repoCarrera.save(c1);
 		repoCarrera.save(c2);
-		*/
-
+		
 		
 		/*ESTUDIANTE - CARRERA*/
 		EstudianteCarreraRepositoryImpl repoEstCarr = RepositoryFactory.get_repositorio_estudiante_carrera();
 		EstudianteCarrera ec = new EstudianteCarrera(es, c1,  LocalDate.now());
-		//repoEstCarr.save(ec); no anda!
+		repoEstCarr.save(ec);
 		
+		System.out.println(ec.getFechainicio().getYear());
 		
 		List<Carrera> carreras = repoEstCarr.getCarrerasConAlumnosInscriptos();
 		for(Carrera cc : carreras) {
