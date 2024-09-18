@@ -53,6 +53,7 @@ public class Estudiante {
 		this.ciudadDeResidencia = ciudadDeResidencia;
 		this.carreras = carreras;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}

@@ -1,8 +1,10 @@
 package repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import Modelo.Estudiante;
+import jakarta.persistence.NoResultException;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository{
 	public static EstudianteRepositoryImpl instance = new EstudianteRepositoryImpl();
@@ -48,25 +50,36 @@ public class EstudianteRepositoryImpl implements EstudianteRepository{
 		RepositoryFactory.getEntity_manager().remove(estudiante);
 		
 	}
+	
 	public List<Estudiante> getEstudianteByGenero(char genero){
 		return  RepositoryFactory.getEntity_manager().createQuery(
 				"SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class)
 				.setParameter("genero", genero)
 				.getResultList();
 	}
-	public Estudiante getEstudianteByMatricula(int matricula){
-		return  RepositoryFactory.getEntity_manager().createQuery(
+	
+	public Estudiante getEstudianteByMatricula(int matricula) {
+		Estudiante est = new Estudiante();
+		try{
+		est =  RepositoryFactory.getEntity_manager().createQuery(
 				"SELECT e FROM Estudiante e WHERE e.nroLibreta = :nroLibreta", Estudiante.class)
 				.setParameter("nroLibreta", matricula)
 				.getSingleResult();
+		}
+		catch (NoResultException nre){
+		}
+		return est;
 	}
+	
 	public List<Estudiante> getEstudianteByCiudad(){
 		return  RepositoryFactory.getEntity_manager().createQuery(
 				"SELECT e FROM Estudiante e ORDER BY e.ciudadDeResidencia", Estudiante.class).getResultList();
 	}
+	
 	private int generarNroLibretaUnico() {
 		return getUltimoNumeroLibreta() + 1;
 	}
+	
 	public int getUltimoNumeroLibreta() {
 		Integer ultimoNroLibreta =  RepositoryFactory.getEntity_manager().createQuery(
 				"SELECT MAX(e.nroLibreta) FROM Estudiante e", Integer.class)
