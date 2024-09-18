@@ -39,6 +39,14 @@ public class RepositoryFactory {
 	public static EstudianteRepositoryImpl get_repositorio_estudiante() {
 		return EstudianteRepositoryImpl.get_instance();
 	}
+	
+	public static CarreraRepositoryImpl get_repositorio_carrera() {
+		return CarreraRepositoryImpl.get_instance();
+	}
+	
+	public static EstudianteCarreraRepositoryImpl get_repositorio_estudiante_carrera() {
+		return EstudianteCarreraRepositoryImpl.get_instance();
+	}
 /*
 	public static CarreraRepositoryImpl get_repositorio_jugador() {
 		return CarreraRepositoryImpl.get_instance();

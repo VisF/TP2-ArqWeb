@@ -5,26 +5,26 @@ import java.util.Objects;
 
 public class EstudianteCarreraId implements Serializable{
 	
-	private int estudiante;
-	private int carrera;
+	private Integer estudiante;
+	private Integer carrera;
 	
 	public EstudianteCarreraId() {
 		
 	}
-	public EstudianteCarreraId(int estudiante, int carrera) {
+	public EstudianteCarreraId(Integer estudiante, Integer carrera) {
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 	}
 	public Integer getId() {
 		return (Integer) hashCode();
 	}
-	public int getEstudiante() {
+	public Integer getEstudiante() {
 		return estudiante;
 	}
 	public void setEstudiante(int estudiante) {
 		this.estudiante = estudiante;
 	}
-	public int getCarrera() {
+	public Integer getCarrera() {
 		return carrera;
 	}
 	public void setCarrera(int carrera) {

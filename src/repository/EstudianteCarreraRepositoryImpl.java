@@ -2,7 +2,8 @@ package repository;
 
 import java.util.List;
 
-
+import Modelo.Carrera;
+import Modelo.Estudiante;
 import Modelo.EstudianteCarrera;
 import Modelo.EstudianteCarreraId;
 
@@ -51,6 +52,31 @@ public static EstudianteCarreraRepositoryImpl instance = new EstudianteCarreraRe
 	public void delete(EstudianteCarrera EstudianteCarrera) {
 		RepositoryFactory.getEntity_manager().remove(EstudianteCarrera);
 		
+	}
+	
+	public List<Carrera> getCarrerasConAlumnosInscriptos(){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				
+				"SELECT c "
+				+ "FROM Carrera c JOIN c.estudiantes ec "
+				+ "GROUP BY c.id "
+				+ " ORDER BY COUNT(ec.carrera) DESC ", Carrera.class)
+				.getResultList();
+	}
+	
+	public List<Estudiante> getEstudiantesByCiudad(Carrera carrera, String ciudad){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT e "
+				+ "FROM Estudiante e JOIN e.carreras ec "
+				+ "JOIN ec.carrera c "
+				+ "WHERE c.nombre = :nombreCarrera "
+				+ " AND e.ciudadDeResidencia = :ciudad ", Estudiante.class)
+				.setParameter("nombreCarrera", carrera.getNombre())
+				.setParameter("ciudad", ciudad)
+				.getResultList();
+		/*
+		 * tendria q mostrar el nombre d ela carrera tmb?
+		 * */
 	}
 	
 

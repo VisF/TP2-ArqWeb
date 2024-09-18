@@ -15,22 +15,37 @@ public class Carrera {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Integer id;
+	
 	@Column    
 	private String nombre;
+	
 	@OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
 	private List<EstudianteCarrera> estudiantes;
+	
+	public Carrera() {
+		super();
+	}
+	
+	public Carrera(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 	public List<EstudianteCarrera> getEstudiantes() {
 		return estudiantes;
 	}
