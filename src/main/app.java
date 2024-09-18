@@ -16,6 +16,8 @@ public class app {
 		
 		EstudianteRepositoryImpl repoEstudiante = RepositoryFactory.get_repositorio_estudiante();
 
+		//EstudianteCarreraRepositoryImpl repoEstCar = RepositoryFactory.get_repositorio_EsCar();
+		
 		
 		Estudiante es = new Estudiante("Paula" , "Sabatini", LocalDate.now() , 'F', 2345, "Chacabuco",  null);
 		repoEstudiante.save(es);
