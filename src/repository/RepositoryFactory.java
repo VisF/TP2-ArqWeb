@@ -3,16 +3,32 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+/**
+ * RepositoryFactory es una clase singleton que gestiona la creación de repositorios
+ * y la conexión con la base de datos mediante JPA.
+ */
 public class RepositoryFactory {
 	public static final String DERBY = "Derby";
 	public static final String MYSQL = "MySQL";
+	// Instancia única de la clase
 	private static RepositoryFactory instance = null;
+	// EntityManagerFactory y EntityManager para gestionar las conexiones
 	private static EntityManagerFactory entity_manager_factory;
 	private static EntityManager entity_manager;
 
+	 /**
+     * Constructor privado para implementar el patrón Singleton.
+     */
 	private RepositoryFactory() {
 	}
 
+	 /**
+     * Obtiene la instancia única de RepositoryFactory.
+     * Si no existe, se crea y se inicializa la conexión a la base de datos.
+     *
+     * @param unidad_persistencia El nombre de la unidad de persistencia (por ejemplo, Derby o MySQL).
+     * @return La instancia única de RepositoryFactory.
+     */
 	public static RepositoryFactory getInstance(String unidad_persistencia) {
 		if (instance == null) {
 			entity_manager_factory = Persistence.createEntityManagerFactory(unidad_persistencia);
