@@ -3,6 +3,7 @@ package repository;
 import java.util.List;
 
 import Modelo.Carrera;
+import Modelo.CarreraReporteDTO;
 
 /**
  * CarreraRepositoryImpl es una implementación del repositorio para la entidad Carrera.
@@ -80,7 +81,18 @@ public class CarreraRepositoryImpl implements CarreraRepository {
      */
 	@Override
 	public void delete(Carrera carrera) {
-		RepositoryFactory.getEntity_manager().remove(carrera);
-		
+		RepositoryFactory.getEntity_manager().remove(carrera);	
 	}
+	
+	public List<CarreraReporteDTO> generarReporteCarreras() {
+	    return RepositoryFactory.getEntity_manager().createQuery(
+	        "SELECT new CarreraReporteDTO(c.nombre, YEAR(ec.fechaInscripcion), " +
+	        "COUNT(ec), " +
+	        "(SELECT COUNT(ece) FROM EstudianteCarrera ece WHERE ece.carrera.id = c.id AND YEAR(ece.fechaEgreso) = YEAR(ec.fechaInscripcion))) " +
+	        "FROM Carrera c JOIN c.estudiantes ec " +
+	        "GROUP BY c.nombre, YEAR(ec.fechaInscripcion) " +
+	        "ORDER BY c.nombre ASC, YEAR(ec.fechaInscripcion) ASC", CarreraReporteDTO.class)
+	        .getResultList();
+	}
+	
 }

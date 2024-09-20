@@ -131,5 +131,36 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
 		 * */
 	}
 	
+	/** CONSULTA B ALTERNATIVA
+     * Guarda (matricula) un estudiante en una carrera. 
+     * Si no existe la relacion, la persiste.
+     * Si ya existe, la actualiza.
+     *
+     * @param carrera La carrera en la que se desea matricular al estudiante.
+     * @param estudiante El estudiante que deseamos matricular.
+     * @return La relacion entre el estudiante y la carrera.
+     
+	public EstudianteCarrera matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera) {
+	    // Crear el objeto EstudianteCarrera que representa la relación entre estudiante y carrera
+	    EstudianteCarrera estudianteCarrera = new EstudianteCarrera();
+	    estudianteCarrera.setEstudiante(estudiante);
+	    estudianteCarrera.setCarrera(carrera);
+	    
+	    RepositoryFactory.getEntity_manager().getTransaction().begin();
+	    
+	    // Verificar si ya existe la relación (matrícula)
+	    EstudianteCarreraId id = new EstudianteCarreraId(estudiante.getId(), carrera.getId());
+	    EstudianteCarrera existe = RepositoryFactory.getEntity_manager().find(EstudianteCarrera.class, id);
+	    
+	    if (existe == null) {
+	        RepositoryFactory.getEntity_manager().persist(estudianteCarrera);
+	    } else {
+	        RepositoryFactory.getEntity_manager().merge(estudianteCarrera);
+	    }
+	    RepositoryFactory.getEntity_manager().getTransaction().commit();
+
+	    return estudianteCarrera;
+	}*/
+
 
 }
