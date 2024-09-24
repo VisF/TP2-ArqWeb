@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import DTO.CarreraReporteDTO;
 import Modelo.Carrera;
 import Modelo.Estudiante;
 import Modelo.EstudianteCarrera;
@@ -77,6 +78,10 @@ public class app {
 			System.out.println(ee.getNombre() + ee.getCiudadDeResidencia() );
 		}
 		
+		List<CarreraReporteDTO> listaDTO = repoCarrera.generarReporteCarreras();
+		for(CarreraReporteDTO crdto : listaDTO) {
+			System.out.println(crdto.getNombreCarrera() + crdto.getAnio());
+		}
 		RepositoryFactory.cerrar_conexion();
 		
 		

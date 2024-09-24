@@ -2,6 +2,7 @@ package repository;
 
 import java.util.List;
 
+import DTO.CarreraReporteDTO;
 import Modelo.Carrera;
 import Modelo.Estudiante;
 import Modelo.EstudianteCarrera;
