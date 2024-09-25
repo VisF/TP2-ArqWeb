@@ -2,7 +2,8 @@ package repository;
 
 import java.util.List;
 
-import DTO.CarreraReporteDTO;
+import dto.CarreraInscriptosDTO;
+import dto.CarreraReporteDTO;
 import Modelo.Carrera;
 
 /**
@@ -84,6 +85,20 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		RepositoryFactory.getEntity_manager().remove(carrera);	
 	}
 	
+	/** CONSULTA F
+     * Recupera las carreras con el mayor número de estudiantes inscritos.
+     *
+     * @return Una lista de carreras con estudiantes inscritos, ordenada por cantidad de inscripciones.
+     */
+	public List<CarreraInscriptosDTO> getCarrerasConAlumnosInscriptos(){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				
+				"SELECT new CarreraInscriptosDTO(c.nombre, COUNT(ec.carrera)) "
+				+ "FROM Carrera c JOIN c.estudiantes ec "
+				+ "GROUP BY c.id "
+				+ " ORDER BY COUNT(ec.carrera) DESC ", CarreraInscriptosDTO.class)
+				.getResultList();
+	}
 	
 	public List<CarreraReporteDTO> generarReporteCarreras() {
 	    return RepositoryFactory.getEntity_manager().createQuery(

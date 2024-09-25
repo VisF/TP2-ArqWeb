@@ -121,4 +121,13 @@ public class Estudiante {
 	public void setNroLibreta(int nro) {
 		this.nroLibreta = nro;
 	}
+
+	@Override
+	public String toString() {
+		return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
+				+ ", genero=" + genero + ", dni=" + dni + ", ciudadDeResidencia=" + ciudadDeResidencia + ", nroLibreta="
+				+ nroLibreta + "]";
+	}
+	
+	
 }

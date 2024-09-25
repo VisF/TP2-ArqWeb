@@ -3,7 +3,9 @@ package repository;
 import java.sql.SQLException;
 import java.util.List;
 
+import Modelo.Carrera;
 import Modelo.Estudiante;
+import dto.EstudianteDTO;
 import jakarta.persistence.NoResultException;
 
 @SuppressWarnings("unused")
@@ -50,7 +52,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	@Override
 	public List<Estudiante> findAll() {
 		return RepositoryFactory.getEntity_manager().createQuery(
-				"SELECT e FROM Estudiante e", Estudiante.class).getResultList();
+				"SELECT new EstudianteDTO(e.nombre,e.apellido,e.fechaNac,e.genero,e.dni,e.ciudadDeResidencia,e.nroLibreta) FROM Estudiante e", Estudiante.class).getResultList();
 	}
 
 	/** CONSULTA A
@@ -96,9 +98,9 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
      * @param genero El género de los estudiantes a buscar.
      * @return Una lista de estudiantes que coinciden con el género.
      */
-	public List<Estudiante> getEstudianteByGenero(char genero){
+	public List<EstudianteDTO> getEstudianteByGenero(char genero){
 		return  RepositoryFactory.getEntity_manager().createQuery(
-				"SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class)
+				"SELECT new EstudianteDTO(e.nombre,e.apellido,e.fechaNac,e.genero,e.dni,e.ciudadDeResidencia,e.nroLibreta) FROM Estudiante e WHERE e.genero = :genero", EstudianteDTO.class)
 				.setParameter("genero", genero)
 				.getResultList();
 	}
@@ -109,17 +111,17 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
      * @param matricula El número de matrícula del estudiante.
      * @return La entidad Estudiante encontrada o null si no existe.
      */
-	public Estudiante getEstudianteByMatricula(int matricula) {
-		Estudiante est = new Estudiante();
+	public EstudianteDTO getEstudianteByMatricula(int matricula) {
 		try{
-		est =  RepositoryFactory.getEntity_manager().createQuery(
-				"SELECT e FROM Estudiante e WHERE e.nroLibreta = :nroLibreta", Estudiante.class)
+			EstudianteDTO est =  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT new EstudianteDTO(e.nombre,e.apellido,e.fechaNac,e.genero,e.dni,e.ciudadDeResidencia,e.nroLibreta) FROM Estudiante e WHERE e.nroLibreta = :nroLibreta", EstudianteDTO.class)
 				.setParameter("nroLibreta", matricula)
 				.getSingleResult();
+		return est;
 		}
 		catch (NoResultException nre){
+			return null;
 		}
-		return est;
 	}
 	
 	/** CONSULTA C
@@ -127,9 +129,31 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
      *
      * @return Una lista de estudiantes ordenados por ciudad de residencia.
      */
-	public List<Estudiante> getEstudianteByCiudad(){
+	public List<EstudianteDTO> getEstudianteOrderByCiudad(){
 		return  RepositoryFactory.getEntity_manager().createQuery(
-				"SELECT e FROM Estudiante e ORDER BY e.ciudadDeResidencia", Estudiante.class).getResultList();
+				"SELECT new EstudianteDTO(e.nombre,e.apellido,e.fechaNac,e.genero,e.dni,e.ciudadDeResidencia,e.nroLibreta) FROM Estudiante e ORDER BY e.ciudadDeResidencia", EstudianteDTO.class).getResultList();
+	}
+	
+	/** CONSULTA G
+     * Recupera los estudiantes de una carrera específica que residen en una ciudad dada.
+     *
+     * @param carrera La carrera de la que se desea obtener estudiantes.
+     * @param ciudad La ciudad de residencia de los estudiantes.
+     * @return Una lista de estudiantes que residen en la ciudad especificada.
+     */
+	public List<EstudianteDTO> getEstudiantesByCiudad(String carrera, String ciudad){
+		return  RepositoryFactory.getEntity_manager().createQuery(
+				"SELECT new EstudianteDTO(e.nombre,e.apellido,e.fechaNac,e.genero,e.dni,e.ciudadDeResidencia,e.nroLibreta) "
+				+ "FROM Estudiante e JOIN e.carreras ec "
+				+ "JOIN ec.carrera c "
+				+ "WHERE c.nombre = :nombreCarrera "
+				+ " AND e.ciudadDeResidencia = :ciudad ", EstudianteDTO.class)
+				.setParameter("nombreCarrera", carrera)
+				.setParameter("ciudad", ciudad)
+				.getResultList();
+		/*
+		 * tendria q mostrar el nombre d ela carrera tmb?
+		 * */
 	}
 	
 	 /**

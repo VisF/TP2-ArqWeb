@@ -2,7 +2,7 @@ package repository;
 
 import java.util.List;
 
-import DTO.CarreraReporteDTO;
+import dto.CarreraReporteDTO;
 import Modelo.Carrera;
 import Modelo.Estudiante;
 import Modelo.EstudianteCarrera;
@@ -95,42 +95,6 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
 		
 	}
 	
-	 /** CONSULTA F
-     * Recupera las carreras con el mayor número de estudiantes inscritos.
-     *
-     * @return Una lista de carreras con estudiantes inscritos, ordenada por cantidad de inscripciones.
-     */
-	public List<Carrera> getCarrerasConAlumnosInscriptos(){
-		return  RepositoryFactory.getEntity_manager().createQuery(
-				
-				"SELECT c "
-				+ "FROM Carrera c JOIN c.estudiantes ec "
-				+ "GROUP BY c.id "
-				+ " ORDER BY COUNT(ec.carrera) DESC ", Carrera.class)
-				.getResultList();
-	}
-	
-	/** CONSULTA G
-     * Recupera los estudiantes de una carrera específica que residen en una ciudad dada.
-     *
-     * @param carrera La carrera de la que se desea obtener estudiantes.
-     * @param ciudad La ciudad de residencia de los estudiantes.
-     * @return Una lista de estudiantes que residen en la ciudad especificada.
-     */
-	public List<Estudiante> getEstudiantesByCiudad(Carrera carrera, String ciudad){
-		return  RepositoryFactory.getEntity_manager().createQuery(
-				"SELECT e "
-				+ "FROM Estudiante e JOIN e.carreras ec "
-				+ "JOIN ec.carrera c "
-				+ "WHERE c.nombre = :nombreCarrera "
-				+ " AND e.ciudadDeResidencia = :ciudad ", Estudiante.class)
-				.setParameter("nombreCarrera", carrera.getNombre())
-				.setParameter("ciudad", ciudad)
-				.getResultList();
-		/*
-		 * tendria q mostrar el nombre d ela carrera tmb?
-		 * */
-	}
 	
 	/** CONSULTA B ALTERNATIVA
      * Guarda (matricula) un estudiante en una carrera. 
